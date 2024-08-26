@@ -11,6 +11,6 @@ Within this repository I have included: a) cns_mpo_single_molecule code, b) cns_
 d) csv_file with_example_particles and e) csv_file_instruction.
 
 **References:**
-- Wager T. et al. *"Moving beyond Rules: The Development of a Central Nervous System Multiparameter Optimization (CNS MPO) Approach To Enable Alignment of Druglike Properties"*
-- Wager T. et al. *"Central Nervous System Multiparameter Optimization Desirability: Application in Drug Discovery"*
-- RDKit documentation (https://www.rdkit.org/docs/#)
+1. Wager T. et al. *"Moving beyond Rules: The Development of a Central Nervous System Multiparameter Optimization (CNS MPO) Approach To Enable Alignment of Druglike Properties"*
+2. Wager T. et al. *"Central Nervous System Multiparameter Optimization Desirability: Application in Drug Discovery"*
+3. RDKit documentation (https://www.rdkit.org/docs/#)
