@@ -1,0 +1,2 @@
+It is important that in the CSV file each column is located in the next cell, and not after a comma.
+Required separator is semicolon (";"), not comma (",").
