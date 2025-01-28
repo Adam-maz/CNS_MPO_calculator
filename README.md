@@ -10,7 +10,7 @@ The second class does the same, but as input the code reads a CSV file (mandator
 Within this repository I have included: a) cns_mpo_single_molecule code, b) cns_mpo_csv_to_df code, c) example_of_use code which explains how to use each class properly,
 d) csv_file with_example_particles and e) csv_file_instruction.
 
-**References:**
+# **References:**
 1. Wager T. et al. *"Moving beyond Rules: The Development of a Central Nervous System Multiparameter Optimization (CNS MPO) Approach To Enable Alignment of Druglike Properties"*
 2. Wager T. et al. *"Central Nervous System Multiparameter Optimization Desirability: Application in Drug Discovery"*
 3. RDKit documentation (https://www.rdkit.org/docs/#)
