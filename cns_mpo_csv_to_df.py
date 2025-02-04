@@ -27,7 +27,7 @@ class CNS_MPO_csv_to_df:
         return logP - log10(1 + 10 ** (pH - pKa))
 
     def csv_file_preparation(self):
-        dictionary = {"MW": [], "LogP": [], "HBD": [], "TPSA": []}
+        dictionary = {"MW": [], "LogP": [], "HBD": [], "TPSA": [], "Fsp3": []}
 
         for cpd in self._df["Smiles"]:
             molecule = Chem.MolFromSmiles(cpd)
