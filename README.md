@@ -1,5 +1,5 @@
 # CNS_MPO_calculator
-Here I provide code that allows users to calculate the MPO CNS score for their molecules based on SMILES and known pKa values. 
+Here I provide code that allows users to calculate the CNS MPO (and additionally Fsp3) score for their molecules based on SMILES and known pKa values. 
 
 CNS MPO is a very useful ADMET filter designed for molecules targeting the central nervous system (CNS). Developed by Wager T. and colleagues [1,2] it is used to test the bioavailability of candidate drugs acting on the CNS.
 According to drug design and optimization, the higher (max. 6, min. 1) the CNS MPO score, the more promising the compound.
