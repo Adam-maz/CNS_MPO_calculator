@@ -5,7 +5,7 @@
 
 import pandas as pd
 from rdkit import Chem
-from rdkit.Chem import Descriptors, Crippen, rdMolDescriptors
+from rdkit.Chem import Descriptors, Crippen, rdMolDescriptors, Lipinski
 from math import log10
 
 
@@ -35,11 +35,13 @@ class CNS_MPO_csv_to_df:
             mol_logp = Crippen.MolLogP(molecule)
             mol_hbd = rdMolDescriptors.CalcNumHBD(molecule)
             mol_tpsa = Descriptors.TPSA(molecule)
+            fsp3 = Lipinski.FractionCSP3(molecule)
 
             dictionary["MW"].append(mol_mw)
             dictionary["LogP"].append(mol_logp)
             dictionary["HBD"].append(mol_hbd)
             dictionary["TPSA"].append(mol_tpsa)
+            dictionary["Fsp3"].append(fsp3)
 
         df_descriptors = pd.DataFrame(dictionary)
         df_descriptors["pKa"] = self._df["pKa"]
@@ -134,7 +136,7 @@ class CNS_MPO_csv_to_df:
         df_descriptors["Id"] = self._df["Id"]
 
         return df_descriptors[
-            ["Id", "MW", "LogP", "LogD", "pKa", "TPSA", "HBD", "CNS_MPO"]
+            ["Id", "MW", "LogP", "LogD", "pKa", "TPSA", "HBD", "CNS_MPO", "Fsp3"]
         ]
 
     def calculate(self):
