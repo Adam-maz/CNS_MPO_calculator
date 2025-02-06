@@ -1,6 +1,11 @@
+"""This code allows the user to calculate CNS-MPO for a single (or multiple) molecule with SMILES and pKa values deposited in the lists.
+   There is no need to create any file with SMILES and pKa values, so it is ideal for quick analysis.
+   To use this code, user must have installed pandas and RDKit in virtual environment.
+"""
+
 import pandas as pd
 from rdkit import Chem
-from rdkit.Chem import Descriptors, Crippen, rdMolDescriptors
+from rdkit.Chem import Descriptors, Crippen, rdMolDescriptors, Lipinski
 from math import log10
 
 
@@ -19,7 +24,7 @@ class CNS_MPO_single_molecule:
         return logP - log10(1 + 10 ** (pH - pKa))
 
     def csv_file_preparation(self):
-        dictionary = {"MW": [], "LogP": [], "HBD": [], "TPSA": []}
+        dictionary = {"MW": [], "LogP": [], "HBD": [], "TPSA": [], "Fsp3": []}
 
         for cpd in self.smiles_list:
             molecule = Chem.MolFromSmiles(cpd)
@@ -29,16 +34,19 @@ class CNS_MPO_single_molecule:
                 dictionary["LogP"].append(None)
                 dictionary["HBD"].append(None)
                 dictionary["TPSA"].append(None)
+                dictionary["Fsp3"].append(None)
                 continue
             mol_mw = Descriptors.MolWt(molecule)
             mol_logp = Crippen.MolLogP(molecule)
             mol_hbd = rdMolDescriptors.CalcNumHBD(molecule)
             mol_tpsa = Descriptors.TPSA(molecule)
+            fsp3 = Lipinski.FractionCSP3(molecule)
 
             dictionary["MW"].append(mol_mw)
             dictionary["LogP"].append(mol_logp)
             dictionary["HBD"].append(mol_hbd)
             dictionary["TPSA"].append(mol_tpsa)
+            dictionary["Fsp3"].append(fsp3)
 
         df_descriptors = pd.DataFrame(dictionary)
         df_descriptors["pKa"] = self.pKa_list
@@ -143,9 +151,8 @@ class CNS_MPO_single_molecule:
             + df_descriptors["HBD_score"]
         )
 
-        # Return only the specified columns
         return df_descriptors[
-            ["MW", "LogP", "HBD", "TPSA", "pKa", "LogD", "CNS_MPO"]
+            ["MW", "LogP", "HBD", "TPSA", "pKa", "LogD", "CNS_MPO", "Fsp3"]
         ]
 
     def calculate(self):
@@ -164,3 +171,22 @@ class CNS_MPO_single_molecule:
 
     def __str__(self):
         return str(self._df)
+
+
+
+"""Example of use"""
+# from cns_mpo_single_molecule import CNS_MPO_single_molecule
+
+# x = CNS_MPO_single_molecule(
+#     smiles_list=[
+#         "C(C=1CCN(C5)CCC(C5)c(n4)c(c3o4)ccc(c3)F)(=O)N(C2)C(CCC2)=NC1C",
+#         "CN(C)C(=O)Cc1c(nc2ccc(C)cn12)c3ccc(C)cc3",
+#     ],
+#     pKa_list=[8.765, 5.65],
+# )
+# print(x)
+
+## It is worth mentioning that, SMILES and pKa values have to be deposited in lists,
+## regardless of whether we administer one or more molecules.
+
+### Authors: Adam Mazur, Rafał Kurczab
